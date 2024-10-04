@@ -1,4 +1,4 @@
-# Laboratorio 3: Filtro Butterworth
+# PROCESAMIENTO DE SEÑAL EMG
 
 Este repositorio contiene el código y la documentación relacionados con el diseño e implementación de un **filtro Butterworth** para el filtrado de señales provenientes del dispositivo **AD8232**, utilizado para el monitoreo de señales ECG (electrocardiograma). El objetivo principal es diseñar un **filtro pasabanda** que, posteriormente, se transforma en un **filtro pasabajo**, mejorando la calidad de la señal al eliminar el ruido no deseado.
 
