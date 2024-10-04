@@ -191,6 +191,10 @@ Dado que no se pudo realizar un análisis estadístico formal  y considerando qu
 *Figura 11: Ventana Hanning 595.*
 <img src="595e.jpg" alt="Ventana de Hanning" width="400"/>
 *Figura 12: Espectro de frecuencia de la ventana 595.*
+## Archivos
+
+- [Descargar archivo .zip](nombre_del_archivo.zip)
+
 
 <img src="596v.jpg" alt="Ventana de Hanning" width="400"/>
 *Figura 13: Ventana Hanning 596.*
@@ -216,3 +220,6 @@ Dado que no se pudo realizar un análisis estadístico formal  y considerando qu
 *Figura 21: Ventana Hanning 600.*
 <img src="600e.jpg" alt="Ventana de Hanning" width="400"/>
 *Figura 22: Espectro de frecuencia de la ventana 600.*
+## Archivos
+
+- [Descargar archivo .zip](emg.zip)
