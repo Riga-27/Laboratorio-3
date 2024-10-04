@@ -220,6 +220,7 @@ Dado que no se pudo realizar un análisis estadístico formal  y considerando qu
 *Figura 21: Ventana Hanning 600.*
 <img src="600e.jpg" alt="Ventana de Hanning" width="400"/>
 *Figura 22: Espectro de frecuencia de la ventana 600.*
+
 ## Archivos
 
 - [Descargar archivo .zip](emg.zip)
