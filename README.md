@@ -20,5 +20,6 @@ Los parámetros del filtro se seleccionaron en base a las especificaciones del A
 -  -3 dB de atenuacion en 40Hz y 500Hz 
 -  -40 dB de atenuacion en 4Hz y 5KHz
 
-
+<img src="WhatsApp Image 2024-10-03 at 9.02.50 PM.jpeg" alt="Descripción de la imagen" width="400"/>
+Figura 1. Se muestra como se ve el filtro pasabanda con sus respectivos datos.
 
