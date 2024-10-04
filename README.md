@@ -8,8 +8,10 @@ El **AD8232** es un bloque integrado especializado para el monitoreo de señales
 
 ## Adquisición de la señal EMG
 La señal se adquirió principalmente de tres músculos: el flexor ulnar del carpo, el flexor radial del carpo y el flexor profundo de los dedos. A continuación, se detallará la ubicación de los electrodos como la señal adquirida originalmente sin filtros:
-<img src="emg" width="700" alt="Imagen 2" style="display: inline-block;"/>
-<img src="https://github.com/user-attachments/assets/cf881c67-99cb-4407-b10a-79112734a435" width="200" alt="Imagen 1" style="display: inline-block;"/>
+
+<img src="https://github.com/user-attachments/assets/a4c3d7df-bed1-4b32-b198-4145f54d3630" width="700" alt="Imagen 2" style="display: inline-block;"/>
+
+-<img src="https://github.com/user-attachments/assets/cf881c67-99cb-4407-b10a-79112734a435" width="200" alt="Imagen 1" style="display: inline-block;"/>
 
 La señal original capturada presenta las siguientes características:
 - *Frecuencia de muestreo*: 3000 Hz
@@ -23,6 +25,49 @@ La señal original capturada presenta las siguientes características:
 
 - *Número de contracciones*: 600 contracciones por minuto.
 
+
+### Filtro Butterworth
+
+El **filtro Butterworth** es ampliamente utilizado en aplicaciones de procesamiento de señales biológicas debido a su respuesta en frecuencia suave y controlada. Se caracteriza por:
+
+- **Respuesta plana en la banda de paso**: El filtro no presenta ondulaciones en la banda de paso, lo que es crucial para mantener la integridad de señales sensibles como las de ECG y EEG.
+- **Atenuación progresiva**: En la banda de corte, la atenuación se incrementa de manera gradual, evitando transiciones abruptas que podrían distorsionar la señal.
+
+Estas propiedades hacen que el filtro Butterworth sea una elección popular en la instrumentación médica y aplicaciones de señal biológica.
+
+### Parámetros del Filtro
+
+Los parámetros del filtro fueron seleccionados de acuerdo con las especificaciones del AD8232 y las necesidades del sistema:
+
+- **Atenuación de -3 dB** a 40 Hz y 500 Hz.
+- **Atenuación de -40 dB** entre 4 Hz y 5 kHz.
+
+Estas especificaciones permiten capturar adecuadamente las señales ECG, reduciendo el ruido en las frecuencias fuera del rango de interés.
+
+### Diseño del Filtro
+
+1. **Filtro Pasabanda**: En la primera etapa, se diseña un filtro pasabanda que permite el paso de frecuencias entre 40 Hz y 500 Hz, atenuando tanto las frecuencias bajas como las muy altas. A continuación, se muestra la gráfica de la respuesta en frecuencia del filtro pasabanda:
+
+<img src="WhatsApp%20Image%202024-10-03%20at%209.02.50%20PM.jpeg" alt="Respuesta en frecuencia del filtro pasabanda" width="400"/>
+
+   *Figura 1: Respuesta en frecuencia del filtro pasabanda.*
+
+2. **Cálculo de Ωr**: Para la transformación de pasabanda a pasabajo, es necesario calcular el valor de Ωr utilizando las siguientes ecuaciones:
+
+  <img src="ecuaciones1.png" alt="Cálculo de Ωr" width="400"/>
+
+   *Figura 2: Cálculo de Ωr mediante las ecuaciones necesarias.*
+
+3. **Filtro Pasabajo**: Con el valor de Ωr calculado, se ajusta el diseño del filtro para convertirlo en un filtro pasabajo normalizado. Este filtro permite una mejor eliminación de las frecuencias no deseadas, enfocándose en el rango de interés más bajo para mejorar la calidad de la señal ECG. A continuación, se muestra la gráfica del filtro pasabajo:
+
+  <img src="WhatsApp%20Image%202024-10-03%20at%209.03.22%20PM.jpeg" alt="Gráfica del filtro pasabajo" width="400"/>
+
+   *Figura 3: Respuesta en frecuencia del filtro pasabajo.*
+
+4. **Cálculo del Orden del Filtro**: Para determinar el orden adecuado del filtro, es necesario realizar cálculos que aseguren una correcta atenuación y un rendimiento óptimo en la filtración de la señal. El orden del filtro determina la complejidad y la precisión del filtrado. A continuación, se muestra la ecuación utilizada para calcular el orden:
+
+  <img src="ecuaciones2.png" alt="Cálculo del orden del filtro" width="400"/>
+   *Figura 4: Cálculo del orden del filtro Butterworth.*
 ## Aplicación de las ventanas de Hanning 
 Elegimos la ventana de Hanning para analizar la señal de electromiografía porque ofrece varias ventajas. Primero, suaviza la señal, lo que reduce las discontinuidades y distorsiones en el análisis de frecuencias, permitiendo una representación más precisa de las componentes de la señal.
 
@@ -81,49 +126,6 @@ En el código también hicimos que para cada contracción con su respectivo anal
  *- Frecuencia Media de 107.23 Hz:* La frecuencia media representa el promedio ponderado de todas las frecuencias presentes en el espectro. Esto nos dice que, en promedio, la señal EMG tiene más energía distribuida alrededor de los 107 Hz. Dado que la frecuencia dominante y la media están tan cerca (110 Hz y 107.23 Hz), esto indica que la energía de la señal está bien concentrada en torno a ese rango de frecuencia. El espectro no muestra muchas otras componentes significativas fuera de este rango, lo que sugiere una contracción muscular fuerte y sostenida.
 
  *- Desviación Estándar de 53.22 Hz:* La desviación estándar de 53.22 Hz indica la dispersión o el ancho del espectro de frecuencias en torno a la media. En este caso, sugiere que hay una cierta cantidad de energía distribuida en frecuencias que se alejan de los 107.23 Hz. Esto es visible en la gráfica del espectro de frecuencias, donde observamos algunas componentes entre 50 Hz y 150 Hz, con una disminución gradual en las frecuencias más altas. La señal no está completamente concentrada en una única frecuencia, lo cual es típico de las señales biológicas que contienen variaciones naturales en las frecuencias.
-
-### Filtro Butterworth
-
-El **filtro Butterworth** es ampliamente utilizado en aplicaciones de procesamiento de señales biológicas debido a su respuesta en frecuencia suave y controlada. Se caracteriza por:
-
-- **Respuesta plana en la banda de paso**: El filtro no presenta ondulaciones en la banda de paso, lo que es crucial para mantener la integridad de señales sensibles como las de ECG y EEG.
-- **Atenuación progresiva**: En la banda de corte, la atenuación se incrementa de manera gradual, evitando transiciones abruptas que podrían distorsionar la señal.
-
-Estas propiedades hacen que el filtro Butterworth sea una elección popular en la instrumentación médica y aplicaciones de señal biológica.
-
-### Parámetros del Filtro
-
-Los parámetros del filtro fueron seleccionados de acuerdo con las especificaciones del AD8232 y las necesidades del sistema:
-
-- **Atenuación de -3 dB** a 40 Hz y 500 Hz.
-- **Atenuación de -40 dB** entre 4 Hz y 5 kHz.
-
-Estas especificaciones permiten capturar adecuadamente las señales ECG, reduciendo el ruido en las frecuencias fuera del rango de interés.
-
-### Diseño del Filtro
-
-1. **Filtro Pasabanda**: En la primera etapa, se diseña un filtro pasabanda que permite el paso de frecuencias entre 40 Hz y 500 Hz, atenuando tanto las frecuencias bajas como las muy altas. A continuación, se muestra la gráfica de la respuesta en frecuencia del filtro pasabanda:
-
-<img src="WhatsApp%20Image%202024-10-03%20at%209.02.50%20PM.jpeg" alt="Respuesta en frecuencia del filtro pasabanda" width="400"/>
-
-   *Figura 1: Respuesta en frecuencia del filtro pasabanda.*
-
-2. **Cálculo de Ωr**: Para la transformación de pasabanda a pasabajo, es necesario calcular el valor de Ωr utilizando las siguientes ecuaciones:
-
-  <img src="ecuaciones1.png" alt="Cálculo de Ωr" width="400"/>
-
-   *Figura 2: Cálculo de Ωr mediante las ecuaciones necesarias.*
-
-3. **Filtro Pasabajo**: Con el valor de Ωr calculado, se ajusta el diseño del filtro para convertirlo en un filtro pasabajo normalizado. Este filtro permite una mejor eliminación de las frecuencias no deseadas, enfocándose en el rango de interés más bajo para mejorar la calidad de la señal ECG. A continuación, se muestra la gráfica del filtro pasabajo:
-
-  <img src="WhatsApp%20Image%202024-10-03%20at%209.03.22%20PM.jpeg" alt="Gráfica del filtro pasabajo" width="400"/>
-
-   *Figura 3: Respuesta en frecuencia del filtro pasabajo.*
-
-4. **Cálculo del Orden del Filtro**: Para determinar el orden adecuado del filtro, es necesario realizar cálculos que aseguren una correcta atenuación y un rendimiento óptimo en la filtración de la señal. El orden del filtro determina la complejidad y la precisión del filtrado. A continuación, se muestra la ecuación utilizada para calcular el orden:
-
-  <img src="ecuaciones2.png" alt="Cálculo del orden del filtro" width="400"/>
-   *Figura 4: Cálculo del orden del filtro Butterworth.*
 
 ### Análisis de Resultados
 
