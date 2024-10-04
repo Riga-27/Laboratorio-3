@@ -67,7 +67,7 @@ Los resultados obtenidos son los siguientes:
 
 **Frecuencias Dominantes y Medias por Ventana:**
 
-| Ventana | Frecuencia Dominante (Hz) | Frecuencia Media (Hz) | Desviación Estándar (Hz) |
+| Ventana | Media Frecuencia Dominante (Hz) | Frecuencia Media (Hz) | Desviación Estándar (Hz) |
 |---------|---------------------------|------------------------|---------------------------|
 | 591     | 110.00                    | 107.23                 | 53.22                     |
 | 592     | 110.00                    | 114.08                 | 57.88                     |
